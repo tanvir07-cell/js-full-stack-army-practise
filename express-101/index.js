@@ -4,6 +4,9 @@ const morgan = require("morgan");
 const cors = require("cors");
 app.use(require("./routes"));
 
+// for serving static files:
+app.use(express.static("public"));
+
 // middleware gula router.use() er moddeh use kora hoy:
 app.use(express.json());
 // multipage routerlication er time e jodi form submit kori tahole nicher ei middleware ti use kora laage:
@@ -22,6 +25,25 @@ function globalMiddleware(req, res, next) {
   }
   next();
 }
+
+// for error handling middleware:
+app.use((req, res, next) => {
+  const error = new Error("404 error");
+  error.status = 404;
+  next(error);
+});
+
+app.use((error, req, res, next) => {
+  // jodi error.status thake tahole amra ager app.use() e jei error diyechi sei error ti dekhabe:
+  // ei if er means holo amra jodi status code diye thaki tahole ei if er error message ti dekhabe:
+  if (error.status) {
+    return res.status(error.status).send(`<h1>${error.message}</h1>`);
+  }
+
+  // ar ei error ti holo server error:
+
+  return res.status(500).send(`<h1>Something went wrong!</h1>`);
+});
 
 app.listen(4000, () => {
   console.log("Express server is listening");

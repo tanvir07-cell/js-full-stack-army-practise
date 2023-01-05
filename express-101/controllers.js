@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const fsController = (_req, res) => {
+  //   throw new Error();
   fs.readFile("pages/index.html", (err, data) => {
     if (err) {
       console.log("Error : ", err);
