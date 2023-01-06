@@ -4,6 +4,9 @@ const morgan = require("morgan");
 const cors = require("cors");
 app.use(require("./routes"));
 
+// for setting ejs and ejs is a template engine and ejs works for the dynamic data:
+app.set("view engine", "ejs");
+
 // for serving static files:
 app.use(express.static("public"));
 
