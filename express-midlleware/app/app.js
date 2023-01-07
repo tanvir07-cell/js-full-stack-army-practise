@@ -1,11 +1,10 @@
 require("dotenv").config("../.env");
 
 const express = require("express");
-const app = express();
-const cors = require("cors");
-const morgan = require("morgan");
 
-app.use([express.json(), morgan("dev"), cors()]);
+const app = express();
+
+app.use(require("./middleware"));
 
 // ei /health route ti alltime sob website ei deoaa lage jate kore api/endPoint gular health/error check korte pare:
 
