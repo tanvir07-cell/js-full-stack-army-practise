@@ -17,3 +17,12 @@ GET http://localhost:8000
 ###
 
 GET http://localhost:8000/xSByBSxlF
+
+###
+
+PATCH http://localhost:8000/sDRNI8Kh_
+Content-Type: application/json
+
+{
+    "name" : "Abul Kalam"
+}
