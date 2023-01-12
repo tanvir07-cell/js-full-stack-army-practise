@@ -15,7 +15,7 @@ app.get("/", (_, res) => {
 });
 
 // for registering the user:
-app.post("/register", async (req, res) => {
+app.post("/register", async (req, res, next) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
@@ -24,23 +24,59 @@ app.post("/register", async (req, res) => {
       .json({ message: "Please provide a name and email and password" });
   }
 
-  // ekhon ami user er name,email,pass pabo kothay! ei sob gulay pabo ami models er moddeh User model e :
+  // eikhane try-catch use korar karon hocceh jodi keo vulval data pass kore register korte chay tahole amra error ti dhore jate pass kore dite pari global error middleware and er maddomei error ti show hobe:
 
-  // jodi user age account create kore rakhe seta check korbo findOne(email) ei method tir maddome:
+  try {
+    // ekhon ami user er name,email,pass pabo kothay! ei sob gulay pabo ami models er moddeh User model e :
 
-  let user = await User.findOne({ email });
-  if (user) {
-    return res.status(400).json({ message: "User already exists" });
+    // jodi user age account create kore rakhe seta check korbo findOne(email) ei method tir maddome:
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    // now new user create and save to the database:
+    user = new User({ name, email, password });
+    // hashing the password jate kore database e password ti hash kore save hoy:
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    user.password = hash;
+    await user.save();
+    return res.status(201).json({ message: "User created successfully", user });
+  } catch (err) {
+    next(err);
   }
+});
 
-  // now new user create and save to the database:
-  user = new User({ name, email, password });
-  // hashing the password jate kore database e password ti hash kore save hoy:
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(password, salt);
-  user.password = hash;
-  await user.save();
-  return res.status(201).json({ message: "User created successfully", user });
+// for login:
+app.post("/login", async (req, res, next) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    // user er jodi email id nah thake tahole to se login korte parbe nah tai error dekhiye dibo:
+    if (!user) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // check the given password and after registration the hash password:
+    const isMatched = await bcrypt.compare(password, user.password);
+    if (!isMatched) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+    // jodi password match kore tahole ekti jwt token dibo and ei token ti amra pore sikhbo apadoto just ekti login successful message dibo:
+
+    // and successfully response er age password ti delete kore dibo:
+    delete user.__doc.user;
+    return res.status(200).json({ message: "login successful" });
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  return res.status(500).json({ message: "Server error occured!" });
 });
 
 connectDB("mongodb://localhost:27017/attendance-db")
