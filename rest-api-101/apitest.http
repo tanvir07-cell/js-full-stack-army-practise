@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8000/sDRNI8Kh_
+DELETE http://localhost:8000/sDRNI8Kh_(
 
 
 
