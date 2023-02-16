@@ -21,8 +21,21 @@ const colorVariant = {
   },
 };
 
-const Button = ({ text, type, variant }) => {
+const sizes = {
+  small: {
+    padding: "0.5rem 1rem",
+  },
+  medium: {
+    padding: "1rem 2rem",
+  },
+  large: {
+    padding: "1.5rem 3rem",
+  },
+};
+
+const Button = ({ text, type, variant, size }) => {
   const userVariant = colorVariant[variant];
+  const userSize = sizes[size];
 
   return (
     <button
@@ -37,6 +50,7 @@ const Button = ({ text, type, variant }) => {
         cursor: "pointer",
         borderRadius: "0.15rem",
         ...userVariant,
+        ...userSize,
       }}
       type={type}
     >

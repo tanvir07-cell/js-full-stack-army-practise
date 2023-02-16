@@ -34,8 +34,8 @@ function App() {
         <InputGroup label="What is your password?" type="password" />
 
         <div>
-          <Button type="reset" text="Reset" variant="error" />
-          <Button type="submit" text="Submit" variant="primary" />
+          <Button type="reset" text="Reset" variant="error" size="small" />
+          <Button type="submit" text="Submit" variant="primary" size="large" />
         </div>
       </form>
     </div>
