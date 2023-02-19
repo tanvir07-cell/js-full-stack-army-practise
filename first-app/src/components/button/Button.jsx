@@ -1,3 +1,5 @@
+import classes from "./Button.module.css";
+
 const colorVariant = {
   primary: {
     backgroundColor: "#2196f3",
@@ -36,19 +38,12 @@ const sizes = {
 const Button = ({ text, type, variant, size }) => {
   const userVariant = colorVariant[variant];
   const userSize = sizes[size];
+  console.log(userSize);
 
   return (
     <button
+      className={classes.button}
       style={{
-        padding: "1rem 2rem",
-        fontSize: "0.9rem",
-        fontWeight: "700",
-        textTransform: "uppercase",
-        letterSpacing: "1px",
-        border: "none",
-        marginRight: "1rem",
-        cursor: "pointer",
-        borderRadius: "0.15rem",
         ...userVariant,
         ...userSize,
       }}
