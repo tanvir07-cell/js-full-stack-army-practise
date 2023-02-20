@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Display from "../components/display-count/Display";
 import Buttons from "../components/inc-dec-buttons/Buttons";
 import Layout from "../components/layout/Layout";
