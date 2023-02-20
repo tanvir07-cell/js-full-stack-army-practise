@@ -1,3 +1,4 @@
+// module css import that means only this Button.jsx file access this css file:
 import classes from "./Button.module.css";
 
 const colorVariant = {
