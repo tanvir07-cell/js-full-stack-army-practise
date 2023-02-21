@@ -5,14 +5,13 @@ function CreateTasks({ addNewTask }) {
 
   return (
     <>
-      <p style={{ marginBottom: "1rem" }}>
-        <input
-          type="text"
-          placeholder="type your text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
-      </p>
+      <input
+        type="text"
+        placeholder="type your text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+
       {/* <button
         onClick={() => {
           alert(text);

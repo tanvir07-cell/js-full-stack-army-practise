@@ -26,7 +26,7 @@ const colorVariant = {
 
 const sizes = {
   small: {
-    padding: "0.5rem 1rem",
+    padding: "0.2rem 0.4rem",
   },
   medium: {
     padding: "1rem 2rem",
@@ -39,7 +39,6 @@ const sizes = {
 const Button = ({ text, type, variant, size, onClick }) => {
   const userVariant = colorVariant[variant];
   const userSize = sizes[size];
-  console.log(userSize);
 
   return (
     <button

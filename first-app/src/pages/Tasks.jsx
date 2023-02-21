@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import shortid from "shortid";
 import Layout from "../components/layout/Layout";
 import CreateTasks from "../components/tasks/CreateTasks";
+import DeleteTasks from "../components/tasks/DeleteTasks";
 import ShowTasks from "../components/tasks/ShowTasks";
 
 // // get Data form the localStorage:
@@ -32,6 +33,10 @@ function Tasks() {
     setTasks([task, ...tasks]);
   };
 
+  const deleteAllTasks = () => {
+    setTasks([]);
+  };
+
   //   set to the localStorage:
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -41,7 +46,9 @@ function Tasks() {
     <Layout>
       <h1>All Tasks</h1>
       <CreateTasks addNewTask={addNewTask} />
-      <ShowTasks tasks={tasks} />
+      <ShowTasks tasks={tasks} setTasks={setTasks} />
+
+      <DeleteTasks deleteAllTasks={deleteAllTasks} />
     </Layout>
   );
 }
