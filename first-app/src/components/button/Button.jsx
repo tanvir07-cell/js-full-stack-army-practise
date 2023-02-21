@@ -36,7 +36,7 @@ const sizes = {
   },
 };
 
-const Button = ({ text, type, variant, size }) => {
+const Button = ({ text, type, variant, size, onClick }) => {
   const userVariant = colorVariant[variant];
   const userSize = sizes[size];
   console.log(userSize);
@@ -49,6 +49,7 @@ const Button = ({ text, type, variant, size }) => {
         ...userSize,
       }}
       type={type}
+      onClick={onClick}
     >
       {text}
     </button>
